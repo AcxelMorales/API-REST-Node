@@ -4,7 +4,8 @@
   "description": "Aplicación Rest con Node",
   "main": "server.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
   },
   "author": "Acxel Morales",
   "license": "ISC",

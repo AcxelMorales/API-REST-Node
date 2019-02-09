@@ -6,7 +6,7 @@ const _ = require('underscore')
 const Usuario = require('../models/user')
 
 // Peticiones
-app.get('/', (req, res) => {
+app.get('/user', (req, res) => {
     // seteamos los parametros opcionales en la url
     let desde = req.query.desde || 0
     desde = Number(desde)

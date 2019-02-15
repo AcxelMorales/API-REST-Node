@@ -19,6 +19,7 @@ app.use(bp.json())
 
 // Routes
 app.use(require('./routes/routes'))
+app.use(require('./routes/login'))
 
 // Conexión a mongoDB
 mongoose.connect(process.env.URL_DB, (err, res) => {

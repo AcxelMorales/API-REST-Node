@@ -4,9 +4,13 @@ const app = express()
 const bcrypt = require('bcrypt')
 const _ = require('underscore')
 const Usuario = require('../models/user')
+const {
+    verificar,
+    verificaRol
+} = require('../middlewares/autenticacion')
 
 // Peticiones
-app.get('/user', (req, res) => {
+app.get('/user', verificar, (req, res) => {
     // seteamos los parametros opcionales en la url
     let desde = req.query.desde || 0
     desde = Number(desde)
@@ -44,7 +48,7 @@ app.get('/user', (req, res) => {
         })
 })
 
-app.post('/user', (req, res) => {
+app.post('/user', [verificar, verificaRol], (req, res) => {
     let body = req.body
 
     // Creamos un usuario con sus propiedades mas importantes, mediante el body
@@ -70,7 +74,7 @@ app.post('/user', (req, res) => {
     })
 })
 
-app.put('/user/:id', (req, res) => {
+app.put('/user/:id', [verificar, verificaRol], (req, res) => {
     let id = req.params.id
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado'])
 
@@ -94,7 +98,7 @@ app.put('/user/:id', (req, res) => {
     })
 })
 
-app.delete('/user/:id', (req, res) => {
+app.delete('/user/:id', [verificar, verificaRol], (req, res) => {
     let id = req.params.id
 
     // eliminacion directa

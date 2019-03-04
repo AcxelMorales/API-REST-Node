@@ -5,6 +5,7 @@ require('./config/config')
 const express = require('express')
 const bp = require('body-parser')
 const mongoose = require('mongoose')
+const path = require('path')
 const app = express()
 
 // Config de BodyParser
@@ -14,6 +15,9 @@ app.use(bp.urlencoded({
 
 app.use(bp.json())
 
+// habilitar la carpeta public
+app.use(express.static(path.resolve(__dirname, '../public')))
+
 // Seteamos el puertp
 // app.set('port', process.env.PORT || 3000)
 
@@ -22,7 +26,10 @@ app.use(require('./routes/routes'))
 app.use(require('./routes/login'))
 
 // Conexión a mongoDB
-mongoose.connect(process.env.URL_DB, (err, res) => {
+mongoose.connect(process.env.URL_DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+}, (err, res) => {
     if (err) throw new Error('Fallo la conexión a MongoDB')
     console.log('Base de datos en MongoDB ONLINE')
 })

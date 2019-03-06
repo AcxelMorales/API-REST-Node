@@ -24,6 +24,8 @@ app.use(express.static(path.resolve(__dirname, '../public')))
 // Routes
 app.use(require('./routes/routes'))
 app.use(require('./routes/login'))
+app.use(require('./routes/categoria'))
+app.use(require('./routes/producto'))
 
 // Conexión a mongoDB
 mongoose.connect(process.env.URL_DB, {
